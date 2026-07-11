@@ -28,6 +28,18 @@ function updateCasePanels() {
   });
 }
 
+// Reveal the top nav once the hero (landing) has scrolled out of view.
+const siteNav = document.getElementById("siteNav");
+const landing = document.querySelector(".landing");
+
+if (siteNav && landing) {
+  const navObserver = new IntersectionObserver(
+    ([entry]) => siteNav.classList.toggle("visible", !entry.isIntersecting),
+    { threshold: 0 }
+  );
+  navObserver.observe(landing);
+}
+
 // Play each case-study video only while it's on screen (autoplay policies pause
 // offscreen videos, and this keeps just the visible one running).
 const caseVideos = document.querySelectorAll(".case-video");
