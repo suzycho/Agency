@@ -189,7 +189,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   margin-top: 44px;
-  max-width: 760px;
+  max-width: 650px;
   border-top: 1px solid var(--line);
 }
 
@@ -220,6 +220,12 @@ a { color: inherit; text-decoration: none; }
 .case-scroll { position: relative; }
 
 .case-panel { position: relative; }
+
+/* Stack later case studies above earlier ones so each new one visibly
+   slides up and covers the previous, rather than pushing it away. */
+.case-panel:nth-child(1) { z-index: 1; }
+.case-panel:nth-child(2) { z-index: 2; }
+.case-panel:nth-child(3) { z-index: 3; }
 
 /* Base / no-JS: simple stacked full-width images with names below. */
 .case-sticky {
@@ -274,12 +280,20 @@ a { color: inherit; text-decoration: none; }
 .case-thumb-2 { background: radial-gradient(circle at 66% 42%, rgba(var(--accent-violet), 0.58), rgba(var(--accent-blue), 0.22) 52%, #0a0912 100%); }
 .case-thumb-3 { background: radial-gradient(circle at 50% 52%, rgba(var(--accent-amber), 0.55), rgba(var(--accent-violet), 0.2) 52%, #100a0a 100%); }
 
-/* Enhanced pinned behavior — only when JS is present. */
-.js .case-panel { height: 170vh; }
+/* Enhanced pinned behavior — only when JS is present. Each panel reserves an
+   extra 100vh beyond its own hold so it stays pinned (static, unmoving)
+   while the NEXT case study slides up and fully covers it — a "cover"
+   transition rather than both panels scrolling/pushing together. */
+.js .case-panel { height: 270vh; }
 
 /* The final panel stays pinned long enough for the following sections to
    scroll up and over it. */
 .js [data-case-last] { height: 300vh; }
+
+/* Pull every case study except the first up by one viewport height so it
+   begins its slide already overlapping the tail end of the previous one's
+   (now-extended) pinned hold, and finishes exactly as it fully covers it. */
+.js .case-panel:not(:first-child) { margin-top: -100vh; }
 
 .js .case-sticky {
   position: sticky;
@@ -315,6 +329,7 @@ a { color: inherit; text-decoration: none; }
 @media (prefers-reduced-motion: reduce) {
   .js .case-panel { height: auto; }
   .js [data-case-last] { height: auto; }
+  .js .case-panel:not(:first-child) { margin-top: 0; }
   .js .case-sticky {
     position: static;
     height: auto;
@@ -353,35 +368,57 @@ a { color: inherit; text-decoration: none; }
   .js .about-section { margin-top: 0; }
 }
 
-.about-grid {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 64px;
-  align-items: center;
+/* Header first — label + title sit flush at the container edge, same as
+   "what we do"'s label. Only the lead paragraph beneath is width-capped. */
+.about-intro { max-width: var(--max-w); }
+
+.about-lead {
+  max-width: 600px;
+  margin: 24px 0 0;
+  color: var(--text-dim);
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.6;
 }
 
-.about-photo {
+.about-bios {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  margin-top: 96px;
+}
+
+.bio-photo {
   aspect-ratio: 4 / 5;
   border-radius: var(--radius);
   border: 1px solid var(--line);
-  background:
-    radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.08), transparent 60%),
-    #0a0a0a;
-  display: flex;
-  align-items: flex-end;
-  padding: 20px;
+  background: #0a0a0a;
+  margin-bottom: 24px;
 }
 
-.about-photo-caption {
-  font-size: 0.78rem;
-  color: var(--text-dim);
+.bio-photo-1 { background: radial-gradient(circle at 35% 25%, rgba(var(--accent-blue), 0.16), transparent 60%), #0a0a0a; }
+.bio-photo-2 { background: radial-gradient(circle at 65% 30%, rgba(var(--accent-violet), 0.16), transparent 60%), #0a0a0a; }
+
+.bio-name {
+  font-size: 1.5rem;
+  margin: 0 0 6px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
-.about-copy p {
+.bio-role {
   color: var(--text-dim);
-  line-height: 1.7;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin: 0 0 14px;
+}
+
+.bio-text {
+  color: var(--text-dim);
+  font-weight: 400;
+  line-height: 1.6;
   font-size: 1.05rem;
-  margin: 0 0 18px;
+  margin: 0;
 }
 
 .about-clients {
@@ -389,8 +426,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 780px) {
-  .about-grid { grid-template-columns: 1fr; }
-  .about-photo { max-width: 260px; }
+  .about-bios { grid-template-columns: 1fr; gap: 48px; }
 }
 
 /* ---------------- clients ---------------- */
