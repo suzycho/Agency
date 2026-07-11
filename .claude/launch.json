@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Python HTTP Server",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8000", "--directory", "."],
+      "port": 8000
+    },
+    {
+      "name": "NPM http-server",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["http-server", "-p", "8001", "-c-1"],
+      "port": 8001
+    },
+    {
+      "name": "NPM live-server",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["live-server", "--port=8002", "--no-browser"],
+      "port": 8002
+    }
+  ]
+}
