@@ -28,6 +28,27 @@ function updateCasePanels() {
   });
 }
 
+// Play each case-study video only while it's on screen (autoplay policies pause
+// offscreen videos, and this keeps just the visible one running).
+const caseVideos = document.querySelectorAll(".case-video");
+
+if (caseVideos.length) {
+  const videoObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.play().catch(() => {});
+        } else {
+          entry.target.pause();
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  caseVideos.forEach((video) => videoObserver.observe(video));
+}
+
 if (casePanels.length && !prefersReducedMotion) {
   let ticking = false;
   const onScroll = () => {
