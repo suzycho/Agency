@@ -1,34 +1,45 @@
-// Reveal each section's ambient glow as it scrolls into view.
-const glowSections = document.querySelectorAll("[data-glow]");
+// Scroll-driven case studies: full-bleed pinned images that slide full-screen
+// to full-screen, each name revealing while its image is held. The last panel
+// stays pinned while the following sections scroll up over it (handled in CSS).
+const casePanels = Array.from(document.querySelectorAll("[data-case-panel]"));
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      entry.target.classList.toggle("in-view", entry.isIntersecting);
-    });
-  },
-  { threshold: 0.25 }
-);
+const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-glowSections.forEach((section) => observer.observe(section));
+function updateCasePanels() {
+  const vh = window.innerHeight;
 
-// Reveal the hero glow immediately on load.
-if (glowSections[0]) glowSections[0].classList.add("in-view");
+  casePanels.forEach((panel) => {
+    const rect = panel.getBoundingClientRect();
+    const travel = panel.offsetHeight - vh;
+    if (travel <= 0) return;
 
-// Soft spotlight that follows the pointer, only on fine-pointer devices.
-const cursorGlow = document.getElementById("cursorGlow");
+    const progress = clamp(-rect.top / travel, 0, 1);
+    const name = panel.querySelector(".case-name");
 
-if (window.matchMedia("(pointer: fine)").matches && cursorGlow) {
-  let raf = null;
-
-  window.addEventListener("mousemove", (event) => {
-    cursorGlow.classList.add("active");
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      cursorGlow.style.transform = `translate(${event.clientX - 240}px, ${event.clientY - 240}px)`;
-      raf = null;
-    });
+    // Name fades in while the image is held, then out before it slides away.
+    const nameIn = easeOutCubic(clamp((progress - 0.08) / 0.16, 0, 1));
+    const nameOut = 1 - easeInOut(clamp((progress - 0.72) / 0.18, 0, 1));
+    name.style.opacity = nameIn * nameOut;
+    name.style.transform = `translateY(${lerp(26, 0, nameIn)}px)`;
   });
+}
 
-  window.addEventListener("mouseleave", () => cursorGlow.classList.remove("active"));
+if (casePanels.length && !prefersReducedMotion) {
+  let ticking = false;
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      updateCasePanels();
+      ticking = false;
+    });
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  updateCasePanels();
 }
