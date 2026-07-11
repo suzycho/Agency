@@ -1,6 +1,8 @@
-// Scroll-driven case studies: full-bleed pinned images that slide full-screen
-// to full-screen, each name revealing while its image is held. The last panel
-// stays pinned while the following sections scroll up over it (handled in CSS).
+// Scroll-driven case studies: each panel stays pinned full-screen while the
+// next one slides up from below and covers it entirely (a "cover" transition,
+// not a push — the outgoing panel never moves, it's just occluded). Every
+// panel reserves an extra 100vh of pin duration beyond its own "hold" so it
+// stays static for the full length of the next panel's cover-slide.
 const casePanels = Array.from(document.querySelectorAll("[data-case-panel]"));
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -17,13 +19,19 @@ function updateCasePanels() {
     const travel = panel.offsetHeight - vh;
     if (travel <= 0) return;
 
-    const progress = clamp(-rect.top / travel, 0, 1);
+    // travel = ownHold + the 100vh reserved for the next panel to cover this
+    // one. Base the name's timing on ownHold alone so it always fades out
+    // well before the cover-slide begins, regardless of the reserve.
+    const holdPx = Math.max(travel - vh, 1);
+    const scrolled = clamp(-rect.top, 0, travel);
+    const holdProgress = clamp(scrolled / holdPx, 0, 1);
     const name = panel.querySelector(".case-name");
 
-    // Name fades in while the image is held, then out before it slides away.
-    const nameIn = easeOutCubic(clamp((progress - 0.08) / 0.16, 0, 1));
-    const nameOut = 1 - easeInOut(clamp((progress - 0.72) / 0.18, 0, 1));
-    name.style.opacity = nameIn * nameOut;
+    // Name fades in once this panel is fully covering (post cover-slide) and
+    // then just holds — no fade-out, since the next panel's cover-slide
+    // physically occludes it when the transition happens.
+    const nameIn = easeOutCubic(clamp((holdProgress - 0.06) / 0.14, 0, 1));
+    name.style.opacity = nameIn;
     name.style.transform = `translateY(${lerp(26, 0, nameIn)}px)`;
   });
 }
