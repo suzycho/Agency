@@ -27,11 +27,11 @@ function updateCasePanels() {
     const holdProgress = clamp(scrolled / holdPx, 0, 1);
     const name = panel.querySelector(".case-name");
 
-    // Name fades in once this panel is fully covering (post cover-slide),
-    // holds, then fades out before the next panel starts covering it.
+    // Name fades in once this panel is fully covering (post cover-slide) and
+    // then just holds — no fade-out, since the next panel's cover-slide
+    // physically occludes it when the transition happens.
     const nameIn = easeOutCubic(clamp((holdProgress - 0.06) / 0.14, 0, 1));
-    const nameOut = 1 - easeInOut(clamp((holdProgress - 0.72) / 0.2, 0, 1));
-    name.style.opacity = nameIn * nameOut;
+    name.style.opacity = nameIn;
     name.style.transform = `translateY(${lerp(26, 0, nameIn)}px)`;
   });
 }
