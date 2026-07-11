@@ -481,9 +481,27 @@ a { color: inherit; text-decoration: none; }
 
 .footer-inner {
   display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 14px;
+}
+
+.footer-location {
+  color: var(--text-dim);
+  font-size: 3rem;
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  font-weight: 700;
+  margin: 0;
 }
 
 .footer-email {
