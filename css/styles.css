@@ -200,10 +200,11 @@ a { color: inherit; text-decoration: none; }
 }
 
 .case-name {
-  font-family: "Clash Display", "Inclusive Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-weight: 300;
-  font-size: clamp(2.2rem, 6vw, 5rem);
-  letter-spacing: -0.02em;
+  font-family: "Inclusive Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(3rem, 10vw, 7.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
   color: #fff;
   text-transform: none;   /* case studies keep their original casing */
   text-shadow: 0 2px 40px rgba(0, 0, 0, 0.45);
@@ -244,9 +245,11 @@ a { color: inherit; text-decoration: none; }
 .js .case-name {
   position: relative;
   z-index: 2;
-  margin: 0;
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
   padding: 0 24px;
-  text-align: center;
+  text-align: left;
   opacity: 0;
 }
 
