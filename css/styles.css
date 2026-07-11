@@ -209,8 +209,8 @@ a { color: inherit; text-decoration: none; }
 /* The one exception to bold: the descriptive text under each capability. */
 .service-card p {
   color: var(--text-dim);
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 1.3rem;
+  line-height: 1.6;
   margin: 0;
   font-weight: 400;
 }
