@@ -61,7 +61,7 @@ In the Vercel project → Settings → Environment Variables, add:
 | `RESEND_API_KEY` | recommended | API key from [resend.com](https://resend.com) (free tier) so codes are emailed |
 | `EMAIL_FROM` | optional | e.g. `Skeptical <cms@skeptical.digital>` — requires verifying the domain in Resend; without it the Resend test sender is used |
 | `GITHUB_REPO` | optional | Defaults to `suzycho/agency` |
-| `GITHUB_BRANCH` | optional | Defaults to `main` |
+| `GITHUB_BRANCH` | optional | Defaults to `main` — set this to your production branch if the site deploys from a different one (this repo's default branch is currently not named `main`) |
 
 Redeploy once after adding the variables.
 
