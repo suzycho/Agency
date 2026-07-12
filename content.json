@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "title": "skeptical.",
+    "subtitle": "we design."
+  },
+  "services": [
+    {
+      "title": "Agency liaison",
+      "description": "Maximize your agency relationships, elevate the customer experience, and make your next redesign project one you'll look forward to."
+    },
+    {
+      "title": "Customer research intensive",
+      "description": "Guide your product roadmap and business strategy with rapid customer research that prioritizes compelling insights."
+    },
+    {
+      "title": "Experience design & digital strategy",
+      "description": "Full-service customer research, information architecture, creative direction, interaction design, and design systems."
+    },
+    {
+      "title": "Enterprise experience design architecture",
+      "description": "Break silos to transform disconnected websites and apps into cohesive experiences."
+    },
+    {
+      "title": "Bespoke consulting",
+      "description": "Branding, social media, content, and more with our vetted network of world-class experts."
+    }
+  ],
+  "caseStudies": [
+    { "name": "Carson Group" },
+    { "name": "Swanson Vitamins" },
+    { "name": "Know Your NOK" }
+  ],
+  "about": {
+    "title": "We design experiences that help brands create real value.",
+    "lead": "We focus on designing experiences that help brands and organizations create value for the communities they serve. Founded in 2024, our experience includes working with early-stage startups, Fortune 500 companies, government institutions, and community organizations."
+  },
+  "bios": [
+    {
+      "name": "Matthew Marco",
+      "role": "Founder & design lead",
+      "text": "A design leader who has led design practices at global brands and award-winning agencies, working across early-stage startups, Fortune 500 companies, and government institutions."
+    },
+    {
+      "name": "Name Surname",
+      "role": "Role",
+      "text": "Placeholder bio copy — swap this in with real background, focus areas, and experience once available."
+    }
+  ],
+  "clients": [
+    "LG",
+    "Clarks",
+    "Nasdaq",
+    "IFC Films",
+    "Optimum",
+    "Century 21",
+    "Ursa Major",
+    "Buunni Coffee",
+    "Melissa & Doug",
+    "General Motors",
+    "Swanson Vitamins",
+    "Resistance Cranes",
+    "University of Michigan",
+    "U.S. Department of State",
+    "SiteOne Landscape Supply",
+    "University of California, Irvine",
+    "U.S. House of Representatives"
+  ],
+  "contact": {
+    "email": "questions@skeptical.digital"
+  },
+  "footer": {
+    "copyright": "© 2026 Skeptical Digital. All rights reserved.",
+    "location": "From NY to CA"
+  }
+}
