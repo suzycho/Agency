@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site editor — Skeptical</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- Sign-in -->
+<section id="loginView" class="login" hidden>
+  <div class="login-card">
+    <h1 class="login-brand">skeptical.</h1>
+    <p class="login-sub">site editor</p>
+
+    <form id="emailForm">
+      <label for="loginEmail">your email</label>
+      <input id="loginEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+      <button type="submit" class="btn" id="sendCodeBtn">email me a sign-in code</button>
+    </form>
+
+    <form id="codeForm" hidden>
+      <label for="loginCode">enter the 6-digit code</label>
+      <input id="loginCode" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="123456" required>
+      <button type="submit" class="btn">sign in</button>
+      <button type="button" class="btn btn-ghost" id="backToEmail">use a different email</button>
+    </form>
+
+    <p id="loginStatus" class="status" role="status"></p>
+  </div>
+</section>
+
+<!-- Editor -->
+<section id="editorView" hidden>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <span class="topbar-brand">skeptical. <span class="topbar-dim">editor</span></span>
+      <div class="topbar-actions">
+        <span id="saveStatus" class="status" role="status"></span>
+        <a href="../" target="_blank" rel="noopener" class="btn btn-ghost">view site</a>
+        <button type="button" class="btn btn-ghost" id="signOutBtn">sign out</button>
+        <button type="button" class="btn btn-save" id="saveBtn">save &amp; publish</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="editor" id="editorMain">
+    <p class="editor-hint">Edit anything below, then hit <strong>save &amp; publish</strong>. Changes go live on the site a minute or two later.</p>
+
+    <details class="panel" open>
+      <summary>Landing</summary>
+      <div class="panel-body">
+        <label>Big title <input type="text" data-path="hero.title"></label>
+        <label>Line under it <input type="text" data-path="hero.subtitle"></label>
+      </div>
+    </details>
+
+    <details class="panel" open>
+      <summary>What we do</summary>
+      <div class="panel-body">
+        <div id="servicesList" class="repeat-list"></div>
+        <button type="button" class="btn btn-ghost" id="addServiceBtn">+ add a service</button>
+      </div>
+    </details>
+
+    <details class="panel" open>
+      <summary>Case study names</summary>
+      <div class="panel-body">
+        <p class="field-hint">The three featured projects on the homepage. The videos stay the same — only the names can change here.</p>
+        <div id="caseList"></div>
+      </div>
+    </details>
+
+    <details class="panel" open>
+      <summary>About us</summary>
+      <div class="panel-body">
+        <label>Headline <textarea rows="2" data-path="about.title"></textarea></label>
+        <label>Intro paragraph <textarea rows="4" data-path="about.lead"></textarea></label>
+      </div>
+    </details>
+
+    <details class="panel" open>
+      <summary>Team bios</summary>
+      <div class="panel-body">
+        <div id="biosList" class="repeat-list"></div>
+        <button type="button" class="btn btn-ghost" id="addBioBtn">+ add a person</button>
+      </div>
+    </details>
+
+    <details class="panel" open>
+      <summary>Past clients &amp; employers</summary>
+      <div class="panel-body">
+        <label>One name per line
+          <textarea rows="10" id="clientsField"></textarea>
+        </label>
+      </div>
+    </details>
+
+    <details class="panel" open>
+      <summary>Contact &amp; footer</summary>
+      <div class="panel-body">
+        <label>Contact email <input type="email" data-path="contact.email"></label>
+        <label>Copyright line <input type="text" data-path="footer.copyright"></label>
+        <label>Location line <input type="text" data-path="footer.location"></label>
+      </div>
+    </details>
+  </main>
+</section>
+
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+/* Skeptical site editor — same palette as the site, tuned for forms. */
+
+:root {
+  --bg: #000;
+  --panel: #0d0d0d;
+  --field: #161616;
+  --text: #fff;
+  --text-dim: rgba(255, 255, 255, 0.55);
+  --line: rgba(255, 255, 255, 0.14);
+  --accent: rgb(120, 150, 255);
+  --danger: rgb(255, 120, 120);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+/* keep the hidden attribute winning over display rules like .login's grid */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inclusive Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------- sign-in ---------------- */
+
+.login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  background: var(--panel);
+}
+
+.login-brand {
+  margin: 0;
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.login-sub {
+  margin: 2px 0 28px;
+  color: var(--text-dim);
+}
+
+/* ---------------- form primitives ---------------- */
+
+label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+input, textarea {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--text);
+  background: var(--field);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  resize: vertical;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.btn {
+  display: inline-block;
+  width: 100%;
+  padding: 11px 16px;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--bg);
+  background: var(--text);
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn:hover { opacity: 0.85; }
+
+.btn-ghost {
+  color: var(--text);
+  background: transparent;
+  border-color: var(--line);
+  font-weight: 400;
+  margin-top: 10px;
+}
+
+.status {
+  min-height: 1.2em;
+  margin: 14px 0 0;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.status.error { color: var(--danger); }
+.status.ok { color: var(--accent); }
+
+/* ---------------- editor topbar ---------------- */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.topbar-brand { font-weight: 700; }
+.topbar-dim { color: var(--text-dim); font-weight: 400; }
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.topbar-actions .btn { width: auto; margin: 0; padding: 8px 16px; }
+.topbar-actions .status { margin: 0; }
+
+.btn-save { background: var(--accent); border-color: var(--accent); color: #000; }
+
+/* ---------------- editor panels ---------------- */
+
+.editor {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 28px 24px 120px;
+}
+
+.editor-hint {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin: 0 0 24px;
+}
+
+.panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  margin-bottom: 16px;
+}
+
+.panel summary {
+  cursor: pointer;
+  padding: 16px 20px;
+  font-weight: 700;
+  list-style: none;
+}
+
+.panel summary::before {
+  content: "▸ ";
+  color: var(--text-dim);
+}
+
+.panel[open] summary::before { content: "▾ "; }
+
+.panel-body { padding: 4px 20px 20px; }
+
+.field-hint {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin: 0 0 14px;
+}
+
+/* repeatable items (services, bios) */
+
+.repeat-item {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 16px 6px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 2px 10px;
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.remove-btn:hover { color: var(--danger); border-color: var(--danger); }
+
+#addServiceBtn, #addBioBtn { width: auto; padding: 8px 18px; }
