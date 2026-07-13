@@ -26,9 +26,15 @@
     }
   ],
   "caseStudies": [
-    { "name": "Carson Group" },
-    { "name": "Swanson Vitamins" },
-    { "name": "Know Your NOK" }
+    {
+      "name": "Carson Group"
+    },
+    {
+      "name": "Swanson Vitamins"
+    },
+    {
+      "name": "Know Your NOK"
+    }
   ],
   "about": {
     "title": "We design experiences that help brands create real value.",
